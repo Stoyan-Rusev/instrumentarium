@@ -5,11 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 from instrumentarium.accounts.managers import UserManager
 
-# Profile:
-# Uploaded Ads,
-# Active and not active
-# Liked Ads,
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
@@ -40,6 +35,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = UserManager()
+
+    def delete(self, using=None, keep_parents=False):
+        if self.is_staff or self.is_superuser:
+            raise ValueError('Cannot deactivate superuser or staff account')
+
+        related_ads = self.ads.all()
+        related_ads.update(is_active=False)
+
+        self.is_active = False
+        self.save(using=using)
 
     def __str__(self):
         return self.email

@@ -28,3 +28,11 @@ class Ad(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
+    is_active = models.BooleanField(
+        default=False,
+    )
+    author = models.ForeignKey(
+        to='accounts.User',
+        related_name='ads',
+        on_delete=models.CASCADE,
+    )
