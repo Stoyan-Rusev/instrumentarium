@@ -1,6 +1,6 @@
 # Instrumentarium
 
-**Instrumentarium** is a web application for selling and buying used musical instruments. It provides a platform for users to create accounts, list their instruments for sale, and browse ads posted by others. The application also includes features for liking ads, receiving notifications for price changes, and an approval process for ads before they're visible to the public.
+**Instrumentarium** is a web application for selling and buying used musical instruments. It provides a platform for users to create accounts, list their instruments for sale, message other users and browse ads posted by others. The application also includes features for liking ads, receiving notifications for price changes, and an approval process for ads before they're visible to the public.
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### Models
 - **Ads Model**: Represents the advertisements for musical instruments.
-- **User and Account Models**: One-to-one relationship to manage user profiles and accounts.
+- **User and Profile Models**: One-to-one relationship to manage user profiles and accounts.
 
 ### Functionalities
 - **User Authentication**:
@@ -16,7 +16,7 @@
   - Log in and log out functionality.
   
 - **Ad Management**:
-  - Users can upload ads (ads are not yet associated with users).
+  - Users can upload ads.
   - Admin approval required for each ad before it's visible on the site.
 
 - **User Interaction with Ads**:
@@ -27,7 +27,6 @@
 
 ## Planned Improvements
 
-- **Ad Ownership**: Associate ads with user accounts.
 - **Search and Filter Ads**: Allow users to search for specific ads by criteria such as instrument type, price, etc.
 - **Enhanced User Profiles**: Add additional fields for user profiles (e.g., contact information).
 - **Messaging System**: Implement a system for buyers and sellers to communicate directly through the platform.
