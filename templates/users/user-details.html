@@ -1,0 +1,11 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div>
+        <p>{{ user.profile.profile_image }}</p>
+        <p>{{ user.first_name }} {{ user.last_name }}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.profile.phone_number }}</p>
+        <p>{{ user.profile.location }}</p>
+    </div>
+{% endblock %}

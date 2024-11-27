@@ -1,0 +1,18 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    {% if ads %}
+        
+        {% for ad in ads %}
+            <div class="ad">
+                <h2>{{ ad.title }}</h2>
+                <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+                <p>{{ ad.price|floatformat:2 }} $</p>
+                <p>{{ ad.description }}</p>
+            </div>
+        {% endfor %}
+        
+    {% else %}
+        <p>No ads available.</p>
+    {% endif %}
+{% endblock %}

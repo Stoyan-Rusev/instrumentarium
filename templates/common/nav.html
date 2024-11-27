@@ -1,0 +1,17 @@
+<ul class="nav-list">
+    <li>
+        <a href="{% url 'home' %}">Home</a>
+    </li>
+    <li>
+        <a href="{% url 'ad-board' %}">Ads</a>
+    </li>
+    {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'upload' %}">Upload</a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url 'login' %}">Login/Register</a>
+        </li>
+    {% endif %}
+</ul>
