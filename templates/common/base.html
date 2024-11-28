@@ -13,23 +13,36 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Instrumentarium</h1>
-    
-    {% if request.user.is_authenticated %}
-        <div class="d-flex flex-column align-items-end pe-3">
-            <p class="mb-1">
-                Hello <a href="{% url 'user-details' pk=request.user.pk %}">
-                    {{ request.user.first_name }} {{ request.user.last_name }}
-                </a>
-            </p>
-            <p class="mb-0"><a href="{% url 'logout-confirmation' %}">Logout</a></p>
-        </div>
-    {% endif %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-primary">Instrumentarium</h1>
 
-    {% include 'common/nav.html' %}
-    
-    {% block content %}
-        <h2 class="text-center">Welcome to our trade platform!</h2>
-    {% endblock %}
+        {% if request.user.is_authenticated %}
+            <div class="text-end">
+                <p class="mb-1">
+                    Hello, 
+                    <a href="{% url 'user-details' pk=request.user.pk %}" class="text-decoration-none text-info fw-bold">
+                        {{ request.user.first_name }} {{ request.user.last_name }}
+                    </a>
+                </p>
+                <p class="mb-0">
+                    <a href="{% url 'logout-confirmation' %}" class="btn btn-outline-danger btn-sm">
+                        Logout
+                    </a>
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="my-3">
+        {% include 'common/nav.html' %}
+    </div>
+
+    <div class="mt-4">
+        {% block content %}
+            <h2 class="text-center text-secondary">Welcome to our trade platform!</h2>
+        {% endblock %}
+    </div>
+</div>
 </body>
 </html>

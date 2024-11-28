@@ -1,11 +1,27 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-    <div>
-        <p>{{ user.profile.profile_image }}</p>
-        <p>{{ user.first_name }} {{ user.last_name }}</p>
-        <p>{{ user.email }}</p>
-        <p>{{ user.profile.phone_number }}</p>
-        <p>{{ user.profile.location }}</p>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <h3 class="text-center">{{ user.first_name }} {{ user.last_name }}</h3>
+                <p class="text-center text-muted">{{ user.email }}</p>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Phone Number:</strong> {{ user.profile.phone_number|default:"N/A" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Location:</strong> {{ user.profile.location|default:"N/A" }}</p>
+                    </div>
+                </div>
+                <hr>
+                <p><strong>Ads Count:</strong> {{ user.ads.count }}</p>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -1,17 +1,27 @@
-<ul class="nav-list">
-    <li>
-        <a href="{% url 'home' %}">Home</a>
-    </li>
-    <li>
-        <a href="{% url 'ad-board' %}">Ads</a>
-    </li>
-    {% if user.is_authenticated %}
-        <li>
-            <a href="{% url 'upload' %}">Upload</a>
-        </li>
-    {% else %}
-        <li>
-            <a href="{% url 'login' %}">Login/Register</a>
-        </li>
-    {% endif %}
-</ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border rounded mb-3">
+    <div class="container">
+        <a class="navbar-brand text-primary" href="{% url 'home' %}">Instrumentarium</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ad-board' %}">Ads</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{% url 'upload' %}">Upload</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'login' %}">Login/Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

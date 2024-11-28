@@ -1,9 +1,18 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Yes, log me out</button>     
-    </form>
-    <a href="{% url 'home' %}">No, take me back</a>
+    <div class="container mt-5">
+        <div class="card p-3 text-center" style="max-width: 400px; margin: 0 auto;">
+            <h4 class="mb-3">Are you sure you want to log out?</h4>
+            
+            <div class="d-grid gap-2">
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-sm w-100">Yes, log me out</button>
+                </form>
+
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm w-100">No, take me back</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

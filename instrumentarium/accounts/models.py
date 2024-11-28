@@ -60,7 +60,11 @@ class Profile(models.Model):
         null=True,
         blank=True,
     )
-    profile_image = models.ImageField()
+    profile_image = models.ImageField(
+        default='profile/default/default-avatar.jpg',
+        upload_to='profile/',
+        blank=True,
+    )
     location = models.CharField(
         max_length=100,
         null=True,
