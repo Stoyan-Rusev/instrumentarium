@@ -27,6 +27,7 @@
 
 ## Planned Improvements
 
+- **Update Profile information**
 - **Search and Filter Ads**: Allow users to search for specific ads by criteria such as instrument type, price, etc.
 - **Enhanced User Profiles**: Add additional fields for user profiles (e.g., contact information).
 - **Messaging System**: Implement a system for buyers and sellers to communicate directly through the platform.
