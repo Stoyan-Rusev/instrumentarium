@@ -1,10 +1,13 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 
-from instrumentarium.accounts.forms import CustomUserCreationForm
-from instrumentarium.accounts.models import Profile, User
+from instrumentarium.accounts.forms import CustomUserCreationForm, ProfileUpdateForm
+from instrumentarium.accounts.models import Profile
+
+User = get_user_model()
 
 
 class UserRegisterView(CreateView):
@@ -21,10 +24,17 @@ class ProfileLoginView(LoginView):
         return self.success_url
 
 
+def logout_confirm_view(request):
+    return render(request, template_name='registration/logout-confirm.html')
+
+
 class UserDetailsView(DetailView):
     model = User
     template_name = 'users/user-details.html'
 
 
-def logout_confirm_view(request):
-    return render(request, template_name='registration/logout-confirm.html')
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    form_class = ProfileUpdateForm
+    template_name = 'users/profile-update.html'
+    success_url = reverse_lazy('home')

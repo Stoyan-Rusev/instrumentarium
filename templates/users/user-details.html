@@ -3,12 +3,13 @@
 {% block content %}
     <div class="container mt-5">
         <div class="card shadow-sm">
-            <div class="card-body">
+            <div class="card-body mb-5">
                 <div class="text-center mb-3">
                     <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
                 <h3 class="text-center">{{ user.first_name }} {{ user.last_name }}</h3>
                 <p class="text-center text-muted">{{ user.email }}</p>
+                <p class="text-center"><strong>Ads Count:</strong> {{ user.ads.count }}</p>
 
                 <hr>
                 <div class="row">
@@ -18,9 +19,12 @@
                     <div class="col-md-6">
                         <p><strong>Location:</strong> {{ user.profile.location|default:"N/A" }}</p>
                     </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        {% if request.user.id == user.id %}
+                            <a href="{% url 'profile-update' pk=user.profile.pk %}" class="btn btn-primary mt-3">Update profile info</a>
+                        {% endif %}
+                    </div>
                 </div>
-                <hr>
-                <p><strong>Ads Count:</strong> {{ user.ads.count }}</p>
             </div>
         </div>
     </div>
