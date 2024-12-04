@@ -1,10 +1,15 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Confirm</button>
-    </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" class="shadow-sm p-4 bg-light rounded">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-

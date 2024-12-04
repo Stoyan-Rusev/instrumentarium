@@ -37,4 +37,6 @@ class ProfileUpdateView(UpdateView):
     model = Profile
     form_class = ProfileUpdateForm
     template_name = 'users/profile-update.html'
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        return reverse_lazy('user-details', kwargs={'pk': self.object.user.pk})
