@@ -11,7 +11,9 @@
                         <img src="{{ ad.image.url }}" class="card-img-top" alt="{{ ad.title }}">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ ad.title }}</h5>
+                        <a href="{% url 'ad-detail' pk=ad.pk %}" class="text-decoration-none">
+                            <h5 class="card-title">{{ ad.title }}</h5>
+                        </a>
                         <p class="card-text text-muted">{{ ad.price|floatformat:2 }} $</p>
                         <p class="card-text">{{ ad.description }}</p>
                         <p class="card-text">Condition: {{ ad.get_condition_display }}</p>

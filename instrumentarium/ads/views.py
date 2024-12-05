@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView
 
 from instrumentarium.ads.forms import UploadAdForm
 from instrumentarium.ads.models import Ad, Like
@@ -41,7 +41,8 @@ class UploadAdView(LoginRequiredMixin, CreateView):
 def like_ad(request, pk):
     ad = get_object_or_404(Ad, pk=pk)
     Like.objects.get_or_create(user=request.user, ad=ad)
-    return redirect('ad-board')
+    next_url = request.GET.get('next')
+    return redirect(next_url if next_url else 'ad-board')
 
 
 @login_required
@@ -52,4 +53,11 @@ def unlike_ad(request, pk):
     if like:
         like.delete()
 
-    return redirect('ad-board')
+    next_url = request.GET.get('next')
+    return redirect(next_url if next_url else 'ad-board')
+
+
+class DetailAdView(DetailView):
+    model = Ad
+    template_name = 'ads/ad-detail.html'
+
