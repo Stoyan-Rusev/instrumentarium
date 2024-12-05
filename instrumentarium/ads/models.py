@@ -3,6 +3,10 @@ from django.db import models
 
 from instrumentarium.ads.choices import InstrumentCondition
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 class Ad(models.Model):
     title = models.CharField(
@@ -35,4 +39,20 @@ class Ad(models.Model):
         to='accounts.User',
         related_name='ads',
         on_delete=models.CASCADE,
+    )
+
+
+class Like(models.Model):
+    ad = models.ForeignKey(
+        to=Ad,
+        on_delete=models.CASCADE,
+        related_name='likes'
+    )
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='likes'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
     )

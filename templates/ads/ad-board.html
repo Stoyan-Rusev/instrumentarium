@@ -14,11 +14,21 @@
                         <h5 class="card-title">{{ ad.title }}</h5>
                         <p class="card-text text-muted">{{ ad.price|floatformat:2 }} $</p>
                         <p class="card-text">{{ ad.description }}</p>
-                        <p class="card-text">
+                        <p class="card-text">Condition: {{ ad.get_condition_display }}</p>
+                        <p class="card-text">Likes: {{ ad.likes.count }}</p>
+                        <hr>
+                        <div class="card-text justify-content-between">
                             <a href="{% url 'user-details' pk=ad.author.pk %}" class="text-decoration-none">
                                 <strong>{{ ad.author.first_name }} {{ ad.author.last_name }}</strong>
                             </a>
-                        </p>
+
+                            {% if user.is_authenticated %}
+                                <div class="d-flex justify-content-end">
+                                    <a href="{% url 'ad-like' pk=ad.pk %}">Like</a>
+                                    <a href="{% url 'ad-unlike' pk=ad.pk %}" class="ms-2">Unlike</a>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
