@@ -8,6 +8,7 @@
 
 ### Models
 - **Ads Model**: Represents the advertisements for musical instruments.
+- **Message and Chat Models**: Needed for the user's chat functionality.
 - **User and Profile Models**: One-to-one relationship to manage user profiles and accounts.
 
 ### Functionalities
@@ -26,12 +27,14 @@
   - Users can **like** ads they are interested in.
   - Users receive **notifications** when the price or status of liked ads changes.
 
+- **Messaging system**:
+  - Users can text each other about ads.
+
 ---
 
 ## Planned Improvements
 
 - **Search and Filter Ads**: Allow users to search for specific ads by criteria such as instrument type, price, etc.
 - **Enhanced User Profiles**: Add additional fields for user profiles (e.g., contact information).
-- **Messaging System**: Implement a system for buyers and sellers to communicate directly through the platform.
 - **Notifications**: Notify users when the price or status of an ad changes, especially for ads they have liked.
 - **Admin Dashboard**: Provide an admin interface to manage ads and approve or reject submissions.
