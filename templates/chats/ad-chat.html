@@ -1,0 +1,45 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">{{ ad.title }}</h2>
+    <p class="text-center text-muted">{{ ad.price }} $</p>
+    <hr>
+
+    <div class="card mb-4">
+        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+            {% for message in chat.messages.all %}
+                <div class="d-flex mb-3 
+                    {% if message.sender == request.user %}justify-content-start
+                    {% else %}justify-content-end
+                    {% endif %}">
+                    <div class="p-3 rounded" 
+                        style="max-width: 60%; 
+                               {% if message.sender == request.user %} background-color: #d9f2ff; color: #000; 
+                               {% else %} background-color: #f8f9fa; color: #000; 
+                               {% endif %}">
+                        <small class="text-muted d-block">{{ message.created_at|date:"M d, Y H:i" }}</small>
+                        <p class="mb-1 fw-bold">{{ message.sender.first_name }} {{ message.sender.last_name }}</p>
+                        <p class="mb-0">{{ message.content }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted text-center">No messages yet. Start the conversation!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="content" class="form-label">Your Message</label>
+                    <textarea name="content" id="content" class="form-control" rows="3">{{ form.content.value }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Send message</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

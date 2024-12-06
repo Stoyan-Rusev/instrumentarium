@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, DetailView
 
-from instrumentarium.ads.forms import UploadAdForm
-from instrumentarium.ads.models import Ad, Like
+from instrumentarium.ads.forms import UploadAdForm, MessageForm
+from instrumentarium.ads.models import Ad, Like, Chat
 
 
 class HomeView(TemplateView):
@@ -60,4 +60,32 @@ def unlike_ad(request, pk):
 class DetailAdView(DetailView):
     model = Ad
     template_name = 'ads/ad-detail.html'
+
+
+@login_required
+def chat_view(request, pk):
+    ad = get_object_or_404(Ad, pk=pk)
+
+    # Sorting the users, because of the 'save' method in Chat model
+    user1, user2 = sorted([request.user, ad.author], key=lambda user: user.id)
+    chat, created = Chat.objects.get_or_create(ad=ad, user1=user1, user2=user2)
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.chat = chat
+            message.save()
+            return redirect('chat', pk=ad.pk)
+    else:
+        form = MessageForm(initial={'content': ''})
+
+    context = {
+        'ad': ad,
+        'chat': chat,
+        'form': form,
+    }
+
+    return render(request, template_name='chats/ad-chat.html', context=context)
 

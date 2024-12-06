@@ -10,14 +10,16 @@
                     <div class="card-img-container">
                         <img src="{{ ad.image.url }}" class="card-img-top" alt="{{ ad.title }}">
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="ad-{{ ad.pk }}">
                         <a href="{% url 'ad-detail' pk=ad.pk %}" class="text-decoration-none">
                             <h5 class="card-title">{{ ad.title }}</h5>
                         </a>
                         <p class="card-text text-muted">{{ ad.price|floatformat:2 }} $</p>
                         <p class="card-text">{{ ad.description }}</p>
                         <p class="card-text">Condition: {{ ad.get_condition_display }}</p>
-                        <p class="card-text">Likes: {{ ad.likes.count }}</p>
+                        <p class="card-text text-muted">
+                            <i class="bi bi-heart"></i> Likes: <span class="badge bg-primary">{{ ad.likes.count }}</span>
+                        </p>
                         <hr>
                         <div class="card-text justify-content-between">
                             <a href="{% url 'user-details' pk=ad.author.pk %}" class="text-decoration-none">
@@ -26,8 +28,8 @@
 
                             {% if user.is_authenticated %}
                                 <div class="d-flex justify-content-end">
-                                    <a href="{% url 'ad-like' pk=ad.pk %}">Like</a>
-                                    <a href="{% url 'ad-unlike' pk=ad.pk %}" class="ms-2">Unlike</a>
+                                    <a href="{% url 'ad-like' pk=ad.pk %}?next=#ad-{{ ad.pk }}" class="btn btn-outline-primary btn-sm">Like</a>
+                                    <a href="{% url 'ad-unlike' pk=ad.pk %}?next=#ad-{{ ad.pk }}" class="btn btn-outline-danger btn-sm ms-2">Unlike</a>
                                 </div>
                             {% endif %}
                         </div>

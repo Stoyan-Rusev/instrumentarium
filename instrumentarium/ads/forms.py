@@ -1,5 +1,5 @@
 from django import forms
-from instrumentarium.ads.models import Ad
+from instrumentarium.ads.models import Ad, Message
 
 
 class AdBaseForm(forms.ModelForm):
@@ -10,3 +10,9 @@ class AdBaseForm(forms.ModelForm):
 
 class UploadAdForm(AdBaseForm):
     pass
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ('content', )
