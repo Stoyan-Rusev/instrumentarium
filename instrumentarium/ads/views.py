@@ -26,6 +26,14 @@ class AdBoardView(ListView):
 
         return context
 
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+
+        if not self.request.user.has_perm('ads.can_approve_ads'):
+            queryset = self.model.objects.filter(is_active=True)
+
+        return queryset
+
 
 class UploadAdView(LoginRequiredMixin, CreateView):
     form_class = UploadAdForm
@@ -55,6 +63,24 @@ def unlike_ad(request, pk):
 
     next_url = request.GET.get('next')
     return redirect(next_url if next_url else 'ad-board')
+
+
+@login_required
+def activate_ad(request, pk):
+    ad = get_object_or_404(Ad, pk=pk)
+    ad.is_active = True
+    ad.save()
+
+    return redirect('ad-detail', pk=pk)
+
+
+@login_required
+def deactivate_ad(request, pk):
+    ad = get_object_or_404(Ad, pk=pk)
+    ad.is_active = False
+    ad.save()
+
+    return redirect('ad-detail', pk=pk)
 
 
 class DetailAdView(DetailView):

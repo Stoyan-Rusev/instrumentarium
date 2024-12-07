@@ -15,6 +15,21 @@
             <p class="card-text text-muted">
                 <i class="bi bi-heart"></i> Likes: <span class="badge bg-primary">{{ ad.likes.count }}</span>
             </p>
+            {% if ad.is_active %}
+                <p class="card-text">Status: <span class="text-success">Active</span></p>
+            {% else %}
+                <p class="card-text">Status: <span class="text-danger">Inactive</span></p>
+            {% endif %}
+            {% if 'ads.can_approve_ads' in request.user.get_group_permissions %}
+                <div class="d-flex">
+                        <a href="{% url 'ad-activate' pk=ad.pk %}" class="btn btn-outline-success btn-sm">
+                            Activate
+                        </a>
+                        <a href="{% url 'ad-deactivate' pk=ad.pk %}" class="btn btn-outline-danger btn-sm ms-2" >
+                            Deactivate
+                        </a>
+                    </div>
+            {% endif %}
             <hr>
             <div class="card-text justify-content-between">
                 <a href="{% url 'user-details' pk=ad.author.pk %}" class="text-decoration-none">

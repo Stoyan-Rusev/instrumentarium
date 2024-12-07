@@ -6,6 +6,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {% for ad in ads %}
             <div class="col">
+            
                 <div class="card h-100">
                     <div class="card-img-container">
                         <img src="{{ ad.image.url }}" class="card-img-top" alt="{{ ad.title }}">
@@ -17,6 +18,12 @@
                         <p class="card-text text-muted">{{ ad.price|floatformat:2 }} $</p>
                         <p class="card-text">{{ ad.description }}</p>
                         <p class="card-text">Condition: {{ ad.get_condition_display }}</p>
+                        <hr>
+                        {% if ad.is_active %}
+                            <p class="card-text">Status: <span class="text-success">Active</span></p>
+                        {% else %}
+                            <p class="card-text">Status: <span class="text-danger">Inactive</span></p>
+                        {% endif %}
                         <p class="card-text text-muted">
                             <i class="bi bi-heart"></i> Likes: <span class="badge bg-primary">{{ ad.likes.count }}</span>
                         </p>
@@ -35,6 +42,7 @@
                         </div>
                     </div>
                 </div>
+            
             </div>
             {% endfor %}
         </div>

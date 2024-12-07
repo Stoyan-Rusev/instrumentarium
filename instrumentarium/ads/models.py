@@ -44,6 +44,11 @@ class Ad(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        permissions = [
+            ('can_approve_ads', 'Can approve ads')
+        ]
+
 
 class Like(models.Model):
     ad = models.ForeignKey(
