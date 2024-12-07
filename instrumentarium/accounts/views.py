@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -44,6 +44,7 @@ class ProfileUpdateView(UpdateView):
 
 
 @login_required
+@permission_required('accounts.can_deactivate_accounts', raise_exception=True)
 def activate_account(request, pk):
     account = get_object_or_404(User, pk=pk)
     account.is_active = True
@@ -53,6 +54,7 @@ def activate_account(request, pk):
 
 
 @login_required
+@permission_required('accounts.can_deactivate_accounts', raise_exception=True)
 def deactivate_account(request, pk):
     account = get_object_or_404(User, pk=pk)
     account.is_active = False

@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
@@ -66,6 +66,7 @@ def unlike_ad(request, pk):
 
 
 @login_required
+@permission_required('ads.can_approve_ads', raise_exception=True)
 def activate_ad(request, pk):
     ad = get_object_or_404(Ad, pk=pk)
     ad.is_active = True
@@ -75,6 +76,7 @@ def activate_ad(request, pk):
 
 
 @login_required
+@permission_required('ads.can_approve_ads', raise_exception=True)
 def deactivate_ad(request, pk):
     ad = get_object_or_404(Ad, pk=pk)
     ad.is_active = False
