@@ -49,6 +49,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    class Meta:
+        permissions = [
+            ('can_deactivate_accounts', 'Can activate/deactivate accounts')
+        ]
+
 
 class Profile(models.Model):
     user = models.OneToOneField(
