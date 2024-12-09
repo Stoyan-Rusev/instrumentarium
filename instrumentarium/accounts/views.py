@@ -58,6 +58,12 @@ def activate_account(request, pk):
 def deactivate_account(request, pk):
     account = get_object_or_404(User, pk=pk)
     account.is_active = False
+
+    ads = account.ads.all()
+    for ad in ads:
+        ad.is_active = False
+        ad.save()
+
     account.save()
 
     return redirect('user-details', pk=pk)
