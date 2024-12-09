@@ -17,14 +17,16 @@
                 {% endif %}
             
                 {% if 'accounts.can_deactivate_accounts' in request.user.get_group_permissions %}
-                    <div class="d-flex justify-content-center mb-2">
-                        <a href="{% url 'account-activate' pk=user.pk %}" class="btn btn-outline-success btn-sm">
-                            Activate
-                        </a>
-                        <a href="{% url 'account-deactivate' pk=user.pk %}" class="btn btn-outline-danger btn-sm ms-2" >
-                            Deactivate
-                        </a>
-                    </div>
+                    {% if not request.user == user %}
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href="{% url 'account-activate' pk=user.pk %}" class="btn btn-outline-success btn-sm">
+                                Activate
+                            </a>
+                            <a href="{% url 'account-deactivate' pk=user.pk %}" class="btn btn-outline-danger btn-sm ms-2" >
+                                Deactivate
+                            </a>
+                        </div>
+                    {% endif %}    
                 {% endif %}
             
                 <p class="text-center"><strong>Ads Count:</strong> {{ user.ads.count }}</p>

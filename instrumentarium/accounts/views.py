@@ -57,6 +57,9 @@ def activate_account(request, pk):
 @permission_required('accounts.can_deactivate_accounts', raise_exception=True)
 def deactivate_account(request, pk):
     account = get_object_or_404(User, pk=pk)
+    if account == request.user:
+        raise ValueError("You cannot deactivate your own account!")
+
     account.is_active = False
 
     ads = account.ads.all()
