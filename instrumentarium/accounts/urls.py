@@ -2,7 +2,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
 from instrumentarium.accounts.views import ProfileLoginView, logout_confirm_view, UserRegisterView, UserDetailsView, \
-    ProfileUpdateView, activate_account, deactivate_account
+    ProfileUpdateView, activate_account, deactivate_account, uploaded_ads_view
 from instrumentarium.ads.views import ChatDetailView, continue_chat
 
 urlpatterns = [
@@ -16,6 +16,7 @@ urlpatterns = [
         path('activate/', activate_account, name='account-activate'),
         path('deactivate/', deactivate_account, name='account-deactivate'),
         path('chats/', ChatDetailView.as_view(), name='user-chats'),
+        path('uploaded_ads/', uploaded_ads_view, name='user-uploaded-ads'),
     ])),
     path('<int:chat_pk>/chat/', continue_chat, name='chat'),
 ]

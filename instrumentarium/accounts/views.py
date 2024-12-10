@@ -70,3 +70,16 @@ def deactivate_account(request, pk):
     account.save()
 
     return redirect('user-details', pk=pk)
+
+
+def uploaded_ads_view(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    ads = user.ads.all()
+
+    context = {
+        'user': user,
+        'ads': ads
+    }
+
+    return render(request, 'users/user-ads.html', context=context)
+

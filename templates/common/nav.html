@@ -9,7 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'ad-board' %}">Ads</a>
                 </li>
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user-chats'  pk=request.user.pk %}">Chats</a>
                     </li>

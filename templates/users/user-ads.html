@@ -1,0 +1,16 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="container my-5">
+        <h2 class="text-center text-primary mb-4">{{ user.first_name }} {{ user.last_name }}'s Uploaded Ads</h2>
+        <ul class="list-group">
+            {% for ad in ads %}
+                <li class="list-group-item">
+                    <a href="{% url 'ad-detail' pk=ad.pk %}" class="text-decoration-none text-dark fw-bold">
+                        {{ ad.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

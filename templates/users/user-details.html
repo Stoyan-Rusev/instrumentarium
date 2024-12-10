@@ -28,9 +28,9 @@
                         </div>
                     {% endif %}    
                 {% endif %}
-            
-                <p class="text-center"><strong>Uploaded ads:</strong> {{ user.ads.count }}</p>
-
+                <a href="{% url 'user-uploaded-ads' pk=user.pk %}" style="text-decoration: none;">
+                    <p class="text-center"><strong>Uploaded ads:</strong> {{ user.ads.count }}</p>
+                </a>
                 <hr>
                 <div class="row">
                     <div class="col-md-6">
