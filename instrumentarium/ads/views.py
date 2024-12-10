@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, DetailView
@@ -90,8 +91,9 @@ class DetailAdView(DetailView):
     template_name = 'ads/ad-detail.html'
 
 
+# This view works for chats opened from the ad-detail page
 @login_required
-def chat_view(request, pk):
+def start_chat(request, pk):
     ad = get_object_or_404(Ad, pk=pk)
 
     # Sorting the users, because of the 'save' method in Chat model
@@ -105,7 +107,7 @@ def chat_view(request, pk):
             message.sender = request.user
             message.chat = chat
             message.save()
-            return redirect('chat', pk=ad.pk)
+            return redirect('chat-initial', pk=ad.pk)
     else:
         form = MessageForm(initial={'content': ''})
 
@@ -116,4 +118,41 @@ def chat_view(request, pk):
     }
 
     return render(request, template_name='chats/ad-chat.html', context=context)
+
+
+# This view works for chats opened from the user-chats page
+def continue_chat(request, chat_pk):
+    chat = get_object_or_404(Chat, pk=chat_pk)
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.chat = chat
+            message.save()
+            return redirect('chat', chat_pk=chat.pk)
+    else:
+        form = MessageForm(initial={'content': ''})
+
+    context = {
+        'ad': chat.ad,
+        'chat': chat,
+        'form': form,
+    }
+
+    return render(request, template_name='chats/ad-chat.html', context=context)
+
+
+class ChatDetailView(ListView):
+    model = Chat
+    template_name = 'chats/user-chats.html'
+    context_object_name = 'chats'
+
+    def get_queryset(self):
+        queryset = Chat.objects.filter(
+            Q(user1=self.request.user) | Q(user2=self.request.user)
+        )
+
+        return queryset
 

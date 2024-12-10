@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="text-center mb-4">{{ ad.title }}</h2>
+    <h2 class="text-center mb-4">
+        <a href="{% url 'ad-detail' pk=ad.pk %}" style="text-decoration: none; color: inherit;">{{ ad.title }}</a>
+    </h2>
     <p class="text-center text-muted">{{ ad.price }} $</p>
     <hr>
 
@@ -31,7 +33,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form method="post">
+            <form action="{% url 'chat' chat_pk=chat.pk %}" method="post">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="content" class="form-label">Your Message</label>

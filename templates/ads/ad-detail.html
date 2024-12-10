@@ -47,7 +47,7 @@
                     </div>
                     {% if ad.author != request.user %}
                         <p class="d-flex justify-content-end mt-2">
-                            <a href="{% url 'chat' pk=ad.pk%}" class="btn btn-outline-success btn-sm">Send Message</a>
+                            <a href="{% url 'chat-initial' pk=ad.pk%}" class="btn btn-outline-success btn-sm">Send Message</a>
                         </p>
                     {% endif %}
                 {% endif %}

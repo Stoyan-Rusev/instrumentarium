@@ -3,6 +3,7 @@ from django.urls import path, include
 
 from instrumentarium.accounts.views import ProfileLoginView, logout_confirm_view, UserRegisterView, UserDetailsView, \
     ProfileUpdateView, activate_account, deactivate_account
+from instrumentarium.ads.views import ChatDetailView, continue_chat
 
 urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='register'),
@@ -14,5 +15,7 @@ urlpatterns = [
         path('update/', ProfileUpdateView.as_view(), name='profile-update'),
         path('activate/', activate_account, name='account-activate'),
         path('deactivate/', deactivate_account, name='account-deactivate'),
+        path('chats/', ChatDetailView.as_view(), name='user-chats'),
     ])),
+    path('<int:chat_pk>/chat/', continue_chat, name='chat'),
 ]
