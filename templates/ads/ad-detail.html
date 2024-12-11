@@ -12,6 +12,8 @@
             <p class="card-text text-muted">{{ ad.price|floatformat:2 }} $</p>
             <p class="card-text">{{ ad.description }}</p>
             <p class="card-text">Condition: {{ ad.get_condition_display }}</p>
+            <p class="card-text">Created at: <span class="text-muted">{{ ad.created_at }}</span></p>
+            <hr>
             <p class="card-text text-muted">
                 <i class="bi bi-heart"></i> Likes: <span class="badge bg-primary">{{ ad.likes.count }}</span>
             </p>
