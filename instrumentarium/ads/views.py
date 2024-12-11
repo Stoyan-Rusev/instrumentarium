@@ -17,15 +17,7 @@ class AdBoardView(ListView):
     model = Ad
     template_name = 'ads/ad-board.html'
     context_object_name = 'ads'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.user.is_authenticated:
-            liked_ads = {ad.pk: ad.likes.filter(user=self.request.user).exists() for ad in context['ads']}
-            context['liked_ads'] = liked_ads
-
-        return context
+    paginate_by = 3
 
     def get_queryset(self):
         queryset = self.model.objects.all()
