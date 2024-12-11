@@ -3,9 +3,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 
-from instrumentarium.ads.forms import UploadAdForm, MessageForm
+from instrumentarium.ads.forms import UploadAdForm, MessageForm, AddUpdateForm
 from instrumentarium.ads.models import Ad, Like, Chat
 
 
@@ -89,6 +89,15 @@ def deactivate_ad(request, pk):
 class DetailAdView(DetailView):
     model = Ad
     template_name = 'ads/ad-detail.html'
+
+
+class UpdateAdView(UpdateView):
+    model = Ad
+    form_class = AddUpdateForm
+    template_name = 'ads/ad-update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('ad-detail', kwargs={'pk': self.object.pk})
 
 
 # This view works for chats opened from the ad-detail page

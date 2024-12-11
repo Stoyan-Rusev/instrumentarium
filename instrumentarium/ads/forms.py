@@ -12,6 +12,11 @@ class UploadAdForm(AdBaseForm):
     pass
 
 
+class AddUpdateForm(AdBaseForm):
+    class Meta(AdBaseForm.Meta):
+        fields = ['description', 'price', 'image', 'condition']
+
+
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message

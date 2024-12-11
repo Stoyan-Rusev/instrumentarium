@@ -51,6 +51,10 @@
                         <p class="d-flex justify-content-end mt-2">
                             <a href="{% url 'chat-initial' pk=ad.pk%}" class="btn btn-outline-success btn-sm">Send Message</a>
                         </p>
+                    {% else %}
+                        <p class="d-flex justify-content-end mt-2">
+                            <a href="{% url 'ad-update' pk=ad.pk %}" class="btn btn-outline-success btn-sm">Update Ad</a>
+                        </p>
                     {% endif %}
                 {% endif %}
             </div>

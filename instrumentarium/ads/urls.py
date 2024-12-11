@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from instrumentarium.ads.views import HomeView, AdBoardView, UploadAdView, like_ad, unlike_ad, DetailAdView, \
-    activate_ad, deactivate_ad, start_chat
+    activate_ad, deactivate_ad, start_chat, UpdateAdView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -14,6 +14,7 @@ urlpatterns = [
             path('activate/', activate_ad, name='ad-activate'),
             path('deactivate/', deactivate_ad, name='ad-deactivate'),
             path('detail/', DetailAdView.as_view(), name='ad-detail'),
+            path('update/', UpdateAdView.as_view(), name='ad-update'),
             path('chat/', start_chat, name='chat-initial'),
         ])),
     ])),
