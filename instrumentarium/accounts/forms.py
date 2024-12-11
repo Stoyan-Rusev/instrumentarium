@@ -22,5 +22,5 @@ class CustomUserChangeForm(UserChangeForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('phone_number', 'location')
+        fields = ('phone_number', 'location', 'profile_image')
 
