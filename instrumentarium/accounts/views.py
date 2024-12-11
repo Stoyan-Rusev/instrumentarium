@@ -83,3 +83,14 @@ def uploaded_ads_view(request, pk):
 
     return render(request, 'users/user-ads.html', context=context)
 
+
+def liked_ads_view(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    like_ads = user.likes.select_related('ad').all()
+
+    context = {
+        'user': user,
+        'like_ads': like_ads
+    }
+
+    return render(request, 'users/user-liked-ads.html', context=context)

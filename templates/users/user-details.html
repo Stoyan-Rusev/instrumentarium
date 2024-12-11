@@ -31,6 +31,9 @@
                 <a href="{% url 'user-uploaded-ads' pk=user.pk %}" style="text-decoration: none;">
                     <p class="text-center"><strong>Uploaded ads:</strong> {{ user.ads.count }}</p>
                 </a>
+                <a href="{% url 'user-liked-ads' pk=user.pk %}" style="text-decoration: none;">
+                    <p class="text-center"><strong>Liked ads</strong></p>
+                </a>
                 <hr>
                 <div class="row">
                     <div class="col-md-6">

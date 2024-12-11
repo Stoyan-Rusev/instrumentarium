@@ -1,0 +1,20 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="container my-5">
+        <h2 class="text-center text-primary mb-4">{{ user.first_name }} {{ user.last_name }}'s Liked Ads:</h2>
+        {% if like_ads %}
+        <ul class="list-group">
+            {% for like in like_ads %}
+                <li class="list-group-item">
+                    <a href="{% url 'ad-detail' pk=like.ad.pk %}" class="text-decoration-none text-dark fw-bold">
+                        {{ like.ad.title }} <span class="text-muted">(Liked on {{ like.created_at }}</span>)
+                    </a>
+                </li>
+            {% endfor %}
+        </ul> 
+    {% else %}
+        <h3 class="text-muted text-center">No liked ads</h3>        
+    {% endif %}
+    </div>
+{% endblock %}
