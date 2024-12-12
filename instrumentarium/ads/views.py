@@ -17,7 +17,7 @@ class AdBoardView(ListView):
     model = Ad
     template_name = 'ads/ad-board.html'
     context_object_name = 'ads'
-    paginate_by = 3
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = self.model.objects.all()

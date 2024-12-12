@@ -35,8 +35,12 @@
 
                             {% if user.is_authenticated %}
                                 <div class="d-flex justify-content-end">
-                                    <a href="{% url 'ad-like' pk=ad.pk %}?next=#ad-{{ ad.pk }}" class="btn btn-outline-primary btn-sm">Like</a>
-                                    <a href="{% url 'ad-unlike' pk=ad.pk %}?next=#ad-{{ ad.pk }}" class="btn btn-outline-danger btn-sm ms-2">Unlike</a>
+                                    <a href="{% url 'ad-like' pk=ad.pk %}?next={{ request.get_full_path }}#ad-{{ ad.pk }}" class="btn btn-outline-primary btn-sm">
+                                        Like
+                                    </a>
+                                    <a href="{% url 'ad-unlike' pk=ad.pk %}?next={{ request.get_full_path }}#ad-{{ ad.pk }}" class="btn btn-outline-danger btn-sm ms-2">
+                                        Unlike
+                                    </a>
                                 </div>
                             {% endif %}
                         </div>
