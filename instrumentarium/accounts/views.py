@@ -59,6 +59,8 @@ def deactivate_account(request, pk):
     account = get_object_or_404(User, pk=pk)
     if account == request.user:
         raise ValueError("You cannot deactivate your own account!")
+    if account.is_superuser:
+        raise ValueError("You cannot deactivate superuser account!")
 
     account.is_active = False
 
