@@ -41,6 +41,7 @@
 - **Search and Filter Ads**: Allow users to search for specific ads by criteria such as instrument type, price, etc.
 - **Notifications**: Notify users when the price or status of an ad changes, especially for ads they have liked.
 
+---
 
 ## Installation
 Follow these steps to set up the **Instrumentarium** project on your local machine:
