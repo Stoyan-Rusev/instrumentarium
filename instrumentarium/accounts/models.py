@@ -1,9 +1,16 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from instrumentarium.accounts.managers import UserManager
+
+phone_validator = RegexValidator(
+    regex=r'^\d+$',
+    message="Phone number must contain only digits."
+)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -64,6 +71,7 @@ class Profile(models.Model):
         max_length=100,
         null=True,
         blank=True,
+        validators=[phone_validator],
     )
     profile_image = models.ImageField(
         default='profile/default/default-avatar.jpg',
@@ -78,3 +86,11 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.email} profile'
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=Q(phone_number__regex=r'^\d+$'),
+                name='phone_number_only_digits'
+            )
+        ]
