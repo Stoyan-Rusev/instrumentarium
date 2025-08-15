@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -34,13 +35,16 @@ class UserDetailsView(DetailView):
     template_name = 'users/user-details.html'
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileUpdateForm
     template_name = 'users/profile-update.html'
 
     def get_success_url(self):
         return reverse_lazy('user-details', kwargs={'pk': self.object.user.pk})
+
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
 
 
 @login_required
