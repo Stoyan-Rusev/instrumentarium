@@ -22,7 +22,7 @@ class Ad(models.Model):
         decimal_places=2,
     )
     image = models.ImageField(
-        upload_to='instruments/',
+        upload_to='instrumentarium/ads/',
         storage=MediaCloudinaryStorage()
     )
     condition = models.CharField(

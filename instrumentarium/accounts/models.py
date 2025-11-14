@@ -1,3 +1,4 @@
+from cloudinary_storage.storage import MediaCloudinaryStorage
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.core.validators import RegexValidator
@@ -74,8 +75,8 @@ class Profile(models.Model):
         validators=[phone_validator],
     )
     profile_image = models.ImageField(
-        default='profile/default/default-avatar.jpg',
-        upload_to='profile/',
+        upload_to='instrumentarium/profiles/',
+        storage=MediaCloudinaryStorage(),
         blank=True,
     )
     location = models.CharField(
