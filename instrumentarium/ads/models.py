@@ -1,3 +1,4 @@
+from cloudinary_storage.storage import MediaCloudinaryStorage
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -21,7 +22,8 @@ class Ad(models.Model):
         decimal_places=2,
     )
     image = models.ImageField(
-        upload_to='instruments/'
+        upload_to='instruments/',
+        storage=MediaCloudinaryStorage()
     )
     condition = models.CharField(
         choices=InstrumentCondition.choices,
@@ -127,7 +129,7 @@ class Message(models.Model):
     )
 
     def __str__(self):
-        return f'Message from {self.sender.email} in chat about {self.chat.ad.name}'
+        return f'Message from {self.sender.email} in chat about {self.chat.ad.title}'
 
     def save(self, *args, **kwargs):
         if self.sender not in [self.chat.user1, self.chat.user2]:
