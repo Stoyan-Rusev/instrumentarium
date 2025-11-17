@@ -4,6 +4,18 @@
     <div class="container mt-5">
         <div class="card p-4" style="max-width: 400px; margin: 0 auto;">
             <h4 class="text-center mb-4">Register</h4>
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field, errors in form.errors.items %}
+                        <strong>{{ field }}:</strong>
+
+                        {% for error in errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
             
             <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
