@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg p-4 text-center" style="max-width: 550px;">
+
+        <div class="mb-3">
+            <div class="rounded-circle bg-success text-white mx-auto mb-3"
+                 style="width: 80px; height: 80px; display: flex;
+                        align-items: center; justify-content: center;
+                        font-size: 40px;">
+                ✓
+            </div>
+        </div>
+
+        <h3 class="text-success mb-3">Your Ad Was Submitted Successfully!</h3>
+
+        <p class="text-muted">
+            Your ad has been received and is currently <strong>awaiting approval</strong>
+            from an administrator.
+            Once approved, it will become visible on the website.
+        </p>
+
+        <div class="mt-4">
+            <a href="{% url 'ad-board' %}" class="btn btn-primary px-4">
+                Go to Ads Board
+            </a>
+            <a href="{% url 'submitted' %}" class="btn btn-outline-secondary px-4 ms-2">
+                Upload Another Ad
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

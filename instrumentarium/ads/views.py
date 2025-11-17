@@ -31,11 +31,27 @@ class AdBoardView(ListView):
 class UploadAdView(LoginRequiredMixin, CreateView):
     form_class = UploadAdForm
     template_name = 'ads/ad-upload.html'
-    success_url = reverse_lazy('ad-board')
+    success_url = reverse_lazy('submitted')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        self.request.session['ad_submitted'] = True
+
+        return response
+
+
+class SubmittedView(TemplateView):
+    template_name = 'ads/submit-success.html'
+
+    def get(self, request, *args, **kwargs):
+
+        if not self.request.session.get('ad_submitted'):
+            return redirect('home')
+
+        del self.request.session['ad_submitted']
+        return super().get(request, args, kwargs)
 
 
 @login_required
