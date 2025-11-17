@@ -6,7 +6,7 @@
     <h2 class="text-center text-primary mb-4">Upload Your Ad</h2>
 
     <div class="card shadow-sm p-4 mx-auto" style="max-width: 600px;">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="ad-upload-form">
             {% csrf_token %}
 
             <!-- Title -->
@@ -71,11 +71,20 @@
             {% endif %}
 
             <div class="text-center mt-4">
-                <button type="submit" class="btn btn-success btn-lg px-5">
+                <button type="submit" class="btn btn-success btn-lg px-5" id="submit-button">
                     Upload Ad
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    const form = document.getElementById("ad-upload-form");
+    const button = document.getElementById("submit-button");
+
+    form.addEventListener('submit', () => {
+        button.disabled = true;
+    });
+</script>
 {% endblock %}
