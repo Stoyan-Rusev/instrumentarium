@@ -7,6 +7,13 @@ class AdBaseForm(forms.ModelForm):
         model = Ad
         fields = ['title', 'description', 'price', 'image', 'condition']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({
+                "class": "form-control"
+            })
+
 
 class UploadAdForm(AdBaseForm):
     pass
